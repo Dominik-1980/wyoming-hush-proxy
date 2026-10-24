@@ -1,0 +1,41 @@
+{
+  "repository": "https://github.com/arpesenti/livekit-plugins-hush",
+  "revision": "ab84d83864003d835013b4e914fca8df83b2cbc6",
+  "license": "Apache-2.0",
+  "source_files": [
+    {
+      "path": "src/livekit/plugins/hush/_hush_model.py",
+      "git_blob_sha": "9dccdc69a9bf64dd7b62f9d6c063857ae20880ff"
+    },
+    {
+      "path": "src/livekit/plugins/hush/_libdf/__init__.py",
+      "git_blob_sha": "a2d851d734ea1410c71a13e1e12e7a381bdcf2d9"
+    }
+  ],
+  "models": [
+    {
+      "name": "config.ini",
+      "bytes": 217,
+      "git_blob_sha": "a26c9bad700ad7f54633aff0270c6253a9fcc472",
+      "url": "https://raw.githubusercontent.com/arpesenti/livekit-plugins-hush/ab84d83864003d835013b4e914fca8df83b2cbc6/src/livekit/plugins/hush/models/config.ini"
+    },
+    {
+      "name": "df_dec.onnx",
+      "bytes": 5420875,
+      "git_blob_sha": "b4f131e947ec19c6d7036e15cf9131f323bbd21a",
+      "url": "https://raw.githubusercontent.com/arpesenti/livekit-plugins-hush/ab84d83864003d835013b4e914fca8df83b2cbc6/src/livekit/plugins/hush/models/df_dec.onnx"
+    },
+    {
+      "name": "enc.onnx",
+      "bytes": 1889309,
+      "git_blob_sha": "250d6866f75aba6a2d68d81244f016d2a2a22e68",
+      "url": "https://raw.githubusercontent.com/arpesenti/livekit-plugins-hush/ab84d83864003d835013b4e914fca8df83b2cbc6/src/livekit/plugins/hush/models/enc.onnx"
+    },
+    {
+      "name": "erb_dec.onnx",
+      "bytes": 1864475,
+      "git_blob_sha": "46498f96c53b2a2fccd2243960f5e7f1f3f5661b",
+      "url": "https://raw.githubusercontent.com/arpesenti/livekit-plugins-hush/ab84d83864003d835013b4e914fca8df83b2cbc6/src/livekit/plugins/hush/models/erb_dec.onnx"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+*
+!requirements.txt
+!hush_proxy/
+!hush_proxy/**
+!licenses/
+!licenses/**
+!NOTICE
+!LICENSE
+!vendor-manifest.json
+!model-checksums.json
+**/__pycache__
+**/*.pyc

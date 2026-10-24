@@ -1,0 +1,18 @@
+Wyoming Hush Proxy
+Copyright 2026 Dominik-1980
+
+This project includes the streaming inference core, pure NumPy DSP and
+stateful ONNX model files from arpesenti/livekit-plugins-hush, commit
+ab84d83864003d835013b4e914fca8df83b2cbc6, licensed under Apache-2.0.
+https://github.com/arpesenti/livekit-plugins-hush
+See licenses/livekit-plugins-hush-LICENSE and vendor-manifest.json.
+
+The Hush model derives from pulp-vision/Hush and DeepFilterNet:
+https://github.com/pulp-vision/Hush
+https://github.com/Rikorose/DeepFilterNet
+Model card: https://huggingface.co/weya-ai/hush
+
+The vendored core/DSP files match the pinned upstream Git blobs. The
+Wyoming bridge, settings, recording/deletion controls and web UI are
+separate project code. The rest of the LiveKit agent framework is not
+included. No speech-to-text model or user recordings are distributed.
