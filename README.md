@@ -1,5 +1,7 @@
 # Wyoming Hush Proxy
 
+<img src="assets/logo.png" alt="Wyoming Hush Proxy logo" width="200">
+
 Local, CPU-based streaming speech enhancement for **Wyoming-compatible speech-to-text services**. The web interface is called **Wyoming Sprachfilter Proxy**.
 
 `Voice client → Wyoming Hush Proxy → your Wyoming STT service`

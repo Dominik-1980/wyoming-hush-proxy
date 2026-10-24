@@ -11,7 +11,7 @@
   <Category>HomeAutomation: MediaServer:Other</Category>
   <WebUI>http://[IP]:[PORT:10323]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/Dominik-1980/wyoming-hush-proxy/main/unraid/wyoming-hush-proxy.xml</TemplateURL>
-  <Icon/>
+  <Icon>https://raw.githubusercontent.com/Dominik-1980/wyoming-hush-proxy/main/assets/logo.png</Icon>
   <ExtraParams>--read-only --tmpfs /tmp:rw,noexec,nosuid,size=32m --cap-drop=ALL --security-opt=no-new-privileges:true --memory=512m --cpus=2</ExtraParams>
   <Config Name="Wyoming-Port" Target="10322" Default="10322" Mode="tcp" Type="Port" Display="always" Required="true" Mask="false">10322</Config>
   <Config Name="Weboberfläche" Target="10323" Default="10323" Mode="tcp" Type="Port" Display="always" Required="true" Mask="false">10323</Config>

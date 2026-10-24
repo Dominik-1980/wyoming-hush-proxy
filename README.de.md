@@ -1,5 +1,7 @@
 # Wyoming Sprachfilter Proxy
 
+<img src="assets/logo.png" alt="Wyoming Hush Proxy Logo" width="200">
+
 Lokaler Hush-Sprachfilter für beliebige **Wyoming-kompatible STT-Dienste**. Docker-Image: `ghcr.io/dominik-1980/wyoming-hush-proxy:0.2.0`.
 
 `Sprachclient → Wyoming Sprachfilter Proxy → STT-Ziel`
