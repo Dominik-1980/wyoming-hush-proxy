@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Container version="2">
   <Name>wyoming-noise-cancelling-proxy</Name>
-  <Repository>ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.0</Repository>
+  <Repository>ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.1</Repository>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
   <Overview>Wyoming Noise Cancelling Proxy: DTLN und Hush einzeln oder als Streaming-Kaskade. Beide Filter standardmäßig an, Hush-Absenkung 12 dB. STT-Ziel und optionale WAV-Aufnahmen über die Weboberfläche.</Overview>

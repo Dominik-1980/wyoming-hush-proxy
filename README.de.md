@@ -21,7 +21,7 @@ docker compose up -d
 
 Weboberfläche: **Port 10323**. Dort STT-Host und dessen Wyoming-Port eintragen. Das Sprachgerät oder die Wyoming-Integration in Home Assistant verbindet sich mit dem Proxy auf **Port 10322**.
 
-Image: `ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.0`
+Image: `ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.1`
 
 Compose verwendet ein eigenes Volume für `/data`. Dort liegen Einstellungen und optionale Aufnahmen. Der Container läuft als UID99/GID100; ein eigener Bindmount muss dieser Kennung Schreibzugriff erlauben. Die Vorlage für Unraid liegt unter [unraid/wyoming-noise-cancelling-proxy.xml](unraid/wyoming-noise-cancelling-proxy.xml).
 

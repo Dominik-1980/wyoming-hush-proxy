@@ -13,6 +13,7 @@ from wyoming.client import AsyncTcpClient
 from wyoming.error import Error
 from wyoming.info import Describe, Info, AsrModel, AsrProgram, Attribution
 from dtln_proxy.audio import AudioStream, FilterModels
+from dtln_proxy import web as web_module
 from dtln_proxy.proxy import Proxy, read_event
 from dtln_proxy.recording import RecordingStore
 from dtln_proxy.settings import SettingsStore
@@ -325,7 +326,7 @@ class ProxyTests(unittest.IsolatedAsyncioTestCase):
             self.assertIn('/assets/logo.png',text)
             response=await client.get('/assets/logo.png')
             self.assertEqual(response.status,200)
-            self.assertEqual(await response.read(),(Path(__file__).resolve().parents[1]/'assets/logo.png').read_bytes())
+            self.assertEqual(await response.read(),(Path(web_module.__file__).resolve().parents[1]/'assets/logo.png').read_bytes())
 
     async def test_target_change_applies_only_to_next_utterance(self):
         other_received = []

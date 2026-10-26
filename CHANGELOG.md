@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1 — 2026-10-26
+
+- Fix the icon test fixture path when tests are mounted separately into the Docker image.
+- Complete the 0.3 release publication; no change to the filtering algorithm.
+
 ## 0.3.0 — 2026-10-26
 
 - Rename the project to **Wyoming Noise Cancelling Proxy**; retain repository history and the existing icon.

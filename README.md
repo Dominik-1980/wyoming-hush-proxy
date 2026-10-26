@@ -29,7 +29,7 @@ DTLN and Hush can be switched independently. Choose original audio, DTLN, Hush, 
 
 ## Docker
 
-Image: `ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.0`
+Image: `ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.1`
 
 ```sh
 docker compose up -d
@@ -44,7 +44,7 @@ The Compose file maps host ports 10322/10323 to container ports 10326/10327 and 
 Manual equivalent:
 
 ```sh
-docker run -d --name wyoming-noise-cancelling-proxy   -p 10322:10326 -p 10323:10327   -v noise-data:/data   --read-only --tmpfs /tmp:rw,noexec,nosuid,size=32m   --cap-drop ALL --security-opt no-new-privileges:true   --memory 512m --cpus 2   ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.0
+docker run -d --name wyoming-noise-cancelling-proxy   -p 10322:10326 -p 10323:10327   -v noise-data:/data   --read-only --tmpfs /tmp:rw,noexec,nosuid,size=32m   --cap-drop ALL --security-opt no-new-privileges:true   --memory 512m --cpus 2   ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.1
 ```
 
 The UI has no login and is intended for a trusted LAN. Keep it behind your normal access controls rather than exposing it directly to the internet.

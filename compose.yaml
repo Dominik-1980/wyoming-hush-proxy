@@ -1,6 +1,6 @@
 services:
   wyoming-noise-cancelling-proxy:
-    image: ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.0
+    image: ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.1
     container_name: wyoming-noise-cancelling-proxy
     restart: unless-stopped
     ports:
