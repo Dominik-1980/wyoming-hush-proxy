@@ -6,9 +6,11 @@ import urllib.request
 
 root = Path(__file__).resolve().parent
 manifest = json.loads((root / 'vendor-manifest.json').read_text())
-out = root / 'hush_proxy' / 'vendor' / 'models'
-out.mkdir(parents=True, exist_ok=True)
-for entry in manifest['models']:
+out = root / 'dtln_proxy' / 'vendor' / 'models'
+dtln = json.loads((root / 'dtln-models.json').read_text())
+targets = [(entry, out) for entry in manifest['models']] + [(entry, root / 'dtln_proxy' / 'models') for entry in dtln]
+for entry, out in targets:
+    out.mkdir(parents=True, exist_ok=True)
     target = out / entry['name']
     if target.exists():
         data = target.read_bytes()

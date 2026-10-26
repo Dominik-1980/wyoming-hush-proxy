@@ -12,12 +12,12 @@ from wyoming.asr import Transcribe, Transcript
 from wyoming.client import AsyncTcpClient
 from wyoming.error import Error
 from wyoming.info import Describe, Info, AsrModel, AsrProgram, Attribution
-from hush_proxy.audio import AudioStream
-from hush_proxy.proxy import Proxy, read_event
-from hush_proxy.recording import RecordingStore
-from hush_proxy.settings import SettingsStore
-from hush_proxy.vendor._hush_model import HushModel
-from hush_proxy.web import create_app
+from dtln_proxy.audio import AudioStream, FilterModels
+from dtln_proxy.proxy import Proxy, read_event
+from dtln_proxy.recording import RecordingStore
+from dtln_proxy.settings import SettingsStore
+from dtln_proxy.vendor._hush_model import HushModel
+from dtln_proxy.web import create_app
 
 
 MODEL = None
@@ -25,7 +25,7 @@ MODEL = None
 
 def setUpModule():
     global MODEL
-    MODEL = HushModel()
+    MODEL = FilterModels()
 
 
 class AudioTests(unittest.TestCase):
@@ -33,7 +33,7 @@ class AudioTests(unittest.TestCase):
         self.pcm = np.random.default_rng(7).integers(-8000, 8000, 1631, dtype=np.int16).astype('<i2').tobytes()
 
     def render(self, pcm, chunk_size, limit=12):
-        stream = AudioStream(MODEL, True, limit)
+        stream = AudioStream(MODEL, True, limit, dtln_enabled=False)
         try:
             return b''.join(stream.feed(pcm[i:i + chunk_size]) for i in range(0, len(pcm), chunk_size)) + stream.finish()
         finally:
@@ -165,21 +165,44 @@ class ProxyTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn('name', self.received[0][1])
         self.assertEqual(self.received[0][1]['context'], {'test': True})
 
-    async def test_real_hush_streams_before_audio_stop_and_preserves_samples(self):
+    async def test_real_cascade_streams_before_audio_stop_and_preserves_samples(self):
         self.settings.update({'filter_enabled': True})
         client = await self.client()
         await self.begin(client)
-        pcm = np.random.default_rng(5).integers(-2000, 2000, 701, dtype=np.int16).tobytes()
-        await self.chunk(client, pcm[:1280])
+        pcm = np.random.default_rng(5).integers(-2000, 2000, 2301, dtype=np.int16).tobytes()
+        await self.chunk(client, pcm[:2048])
         await asyncio.wait_for(self.chunk_seen.wait(), 3)
         self.assertEqual(self.received, [])
-        await self.chunk(client, pcm[1280:])
+        await self.chunk(client, pcm[2048:])
         self.assertTrue(Transcript.is_type((await self.end(client)).type))
         reference = AudioStream(MODEL)
         expected = reference.feed(pcm) + reference.finish()
         reference.close()
         self.assertEqual(self.received[0][0], expected)
         self.assertEqual(len(expected), len(pcm))
+
+    async def test_stage_settings_are_snapshotted_for_the_utterance(self):
+        self.settings.update({'filter_enabled':True,'dtln_enabled':True,'hush_enabled':True,'recording_enabled':True,'atten_lim_db':16})
+        pcm = np.random.default_rng(66).integers(-4000,4000,2307,dtype=np.int16).tobytes()
+        client = await self.client()
+        await self.begin(client)
+        await self.chunk(client,pcm[:2048])
+        await asyncio.wait_for(self.chunk_seen.wait(),3)
+        self.settings.update({'dtln_enabled':False,'hush_enabled':False})
+        await self.chunk(client,pcm[2048:])
+        await self.end(client)
+        reference = AudioStream(MODEL,True,16,True,True)
+        try: expected = reference.feed(pcm)+reference.finish()
+        finally: reference.close()
+        self.assertEqual(self.received[-1][0],expected)
+        metadata = json.loads(next(self.recordings.root.glob('*/metadata.json')).read_text())
+        self.assertTrue(metadata['settings']['dtln_enabled'])
+        self.assertTrue(metadata['settings']['hush_enabled'])
+        second = await self.client()
+        await self.begin(second)
+        await self.chunk(second,pcm)
+        await self.end(second)
+        self.assertEqual(self.received[-1][0],pcm)
 
     async def test_paired_recording_and_setting_snapshot(self):
         self.settings.update({'recording_enabled': True})
@@ -292,6 +315,17 @@ class ProxyTests(unittest.IsolatedAsyncioTestCase):
         await self.end(client)
         self.assertEqual(self.received[-1][1]['name'], 'test-model')
         self.assertEqual(self.received[-1][1]['language'], 'fr')
+
+    async def test_branded_ui_logo_and_default_hint(self):
+        async with TestClient(TestServer(create_app(self.proxy))) as client:
+            response=await client.get('/')
+            text=await response.text()
+            self.assertIn('Wyoming Noise Cancelling Proxy',text)
+            self.assertIn('12 dB Voreinstellung.',text)
+            self.assertIn('/assets/logo.png',text)
+            response=await client.get('/assets/logo.png')
+            self.assertEqual(response.status,200)
+            self.assertEqual(await response.read(),(Path(__file__).resolve().parents[1]/'assets/logo.png').read_bytes())
 
     async def test_target_change_applies_only_to_next_utterance(self):
         other_received = []

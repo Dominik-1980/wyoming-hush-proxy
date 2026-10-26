@@ -12,7 +12,7 @@ try:
 except subprocess.CalledProcessError:
     files = [p for p in root.rglob('*') if p.is_file() and '__pycache__' not in p.parts and '.git' not in p.parts]
 assert files, 'No release files found'
-forbidden_path = re.compile(r'(?i)(Audioanalyse|recordings/|/data/|results\.json|settings\.json|\.wav$|\.flac$|\.mp3$|\.ckpt$|\.pem$|\.key$|\.env$)')
+forbidden_path = re.compile(r'(?i)(Audioanalyse|recordings/|/data/|results\.json|settings\.json|artifacts/|\.wav$|\.flac$|\.mp3$|\.ckpt$|\.pem$|\.key$|\.env$)')
 private_ipv4 = re.compile(r'\b(?:192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})\b')
 secret = re.compile(r'(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)')
 for path in files:
@@ -29,7 +29,7 @@ for path in files:
         assert ('/'+'Users/') not in text and ('Codex'+' Assist') not in text, f'Local/private path: {name}'
 
 manifest = json.loads((root/'vendor-manifest.json').read_text())
-vendor = root/'hush_proxy/vendor'
+vendor = root/'dtln_proxy/vendor'
 for name, source in zip(('_hush_model.py','_libdf/__init__.py'), manifest['source_files']):
     data = (vendor/name).read_bytes()
     assert hashlib.sha1(f'blob {len(data)}\0'.encode()+data).hexdigest() == source['git_blob_sha'], name
@@ -38,3 +38,14 @@ for model in json.loads((root/'model-checksums.json').read_text()):
     assert len(data) == model['bytes']
     assert hashlib.sha256(data).hexdigest() == model['sha256'], model['name']
 print(f'Verified {len(files)} release files; no private audio/settings/addresses; source and model hashes match.')
+
+for model in json.loads((root/'dtln-models.json').read_text()):
+    data = (root/'dtln_proxy/models'/model['name']).read_bytes()
+    assert len(data) == model['bytes']
+    assert hashlib.sha256(data).hexdigest() == model['sha256']
+for name in ['README.md','README.de.md']:
+    text = (root/name).read_text()
+    assert 'https://ko-fi.com/dominik_w' in text and 'https://paypal.me/DominikWeiland' in text
+    assert text.startswith('# Wyoming Noise Cancelling Proxy')
+assert 'atten_lim_db: float = 12.0' in (root/'dtln_proxy/settings.py').read_text()
+print('DTLN model hashes, 12 dB default and support links verified.')

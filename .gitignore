@@ -24,3 +24,5 @@ analysis.json
 *.tar
 *.tar.gz
 *.zip
+
+artifacts/

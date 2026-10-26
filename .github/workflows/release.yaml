@@ -14,9 +14,9 @@ jobs:
       - name: Verify release contents and model provenance
         run: python3 scripts/verify_release.py
       - name: Build image
-        run: docker build -t wyoming-hush-proxy:test .
+        run: docker build -t wyoming-noise-cancelling-proxy:test .
       - name: Test streaming, routing and recording controls
-        run: docker run --rm --network none -v "$PWD/tests:/tests:ro" wyoming-hush-proxy:test python -m unittest discover -s /tests -v
+        run: docker run --rm --network none --read-only --tmpfs /tmp:rw,noexec,nosuid,size=32m -v "$PWD/tests:/tests:ro" wyoming-noise-cancelling-proxy:test python -m unittest discover -s /tests -v
   publish:
     if: startsWith(github.ref, 'refs/tags/v') && github.event_name == 'push'
     needs: test
@@ -52,6 +52,8 @@ jobs:
           tags: |
             ${{ steps.image.outputs.name }}:${{ steps.image.outputs.version }}
             ${{ steps.image.outputs.name }}:latest
+            ghcr.io/dominik-1980/wyoming-hush-proxy:${{ steps.image.outputs.version }}
+            ghcr.io/dominik-1980/wyoming-hush-proxy:latest
           build-args: |
             VERSION=${{ steps.image.outputs.version }}
             VCS_REF=${{ github.sha }}

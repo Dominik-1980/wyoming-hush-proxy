@@ -2,8 +2,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from hush_proxy.recording import RecordingStore
-from hush_proxy.settings import SettingsStore
+from dtln_proxy.recording import RecordingStore
+from dtln_proxy.settings import SettingsStore
 
 
 class SettingsTests(unittest.TestCase):

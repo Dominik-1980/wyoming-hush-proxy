@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Container version="2">
+  <Name>wyoming-noise-cancelling-proxy</Name>
+  <Repository>ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.0</Repository>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Overview>Wyoming Noise Cancelling Proxy: DTLN und Hush einzeln oder als Streaming-Kaskade. Beide Filter standardmäßig an, Hush-Absenkung 12 dB. STT-Ziel und optionale WAV-Aufnahmen über die Weboberfläche.</Overview>
+  <Category>HomeAutomation: MediaServer:Other</Category>
+  <WebUI>http://[IP]:[PORT:10327]</WebUI>
+  <ExtraParams>--read-only --tmpfs /tmp:rw,noexec,nosuid,size=32m --cap-drop=ALL --security-opt=no-new-privileges:true --memory=512m --cpus=2</ExtraParams>
+  <Config Name="Wyoming-Port" Target="10326" Default="10322" Mode="tcp" Type="Port" Display="always" Required="true" Mask="false">10322</Config>
+  <Config Name="Weboberfläche" Target="10327" Default="10323" Mode="tcp" Type="Port" Display="always" Required="true" Mask="false">10323</Config>
+  <Config Name="Initiales STT-Ziel (optional)" Target="UPSTREAM_URI" Default="" Type="Variable" Display="always" Required="false" Mask="false" />
+  <Config Name="Appdata" Target="/data" Default="/mnt/user/appdata/wyoming-noise-cancelling-proxy" Mode="rw" Description="Schreibrechte für UID99/GID100 erforderlich" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/wyoming-noise-cancelling-proxy</Config>
+  <Config Name="Aufnahmen maximal MB" Target="MAX_RECORDING_MB" Default="512" Type="Variable" Display="advanced" Required="true" Mask="false">512</Config>
+  <Config Name="Maximale Audiodauer" Target="MAX_AUDIO_SECONDS" Default="60" Type="Variable" Display="advanced" Required="true" Mask="false">60</Config>
+  <Config Name="Gleichzeitige Anfragen" Target="MAX_SESSIONS" Default="2" Type="Variable" Display="advanced" Required="true" Mask="false">2</Config>
+  <Registry>https://github.com/Dominik-1980/wyoming-noise-cancelling-proxy/pkgs/container/wyoming-noise-cancelling-proxy</Registry>
+  <Support>https://github.com/Dominik-1980/wyoming-noise-cancelling-proxy/issues</Support>
+  <Project>https://github.com/Dominik-1980/wyoming-noise-cancelling-proxy</Project>
+  <TemplateURL>https://raw.githubusercontent.com/Dominik-1980/wyoming-noise-cancelling-proxy/main/unraid/wyoming-noise-cancelling-proxy.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/Dominik-1980/wyoming-noise-cancelling-proxy/main/assets/logo.png</Icon>
+</Container>

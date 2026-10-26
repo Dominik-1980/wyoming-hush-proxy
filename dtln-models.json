@@ -1,0 +1,16 @@
+[
+  {
+    "name": "model_1.onnx",
+    "url": "https://raw.githubusercontent.com/breizhn/DTLN/master/pretrained_model/model_1.onnx",
+    "git_blob_sha": "a50a7d380d716b3bc616423026efc691ee596904",
+    "bytes": 1458237,
+    "sha256": "22b91cae3855e5a0620e66a917ca6c82c58db0e842c770f58d86751c5e8d4ae3"
+  },
+  {
+    "name": "model_2.onnx",
+    "url": "https://raw.githubusercontent.com/breizhn/DTLN/master/pretrained_model/model_2.onnx",
+    "git_blob_sha": "2db53a6e20edce6a7f1ef2e976029f54585629c0",
+    "bytes": 2510010,
+    "sha256": "e20c92f9233fccf29cddf86970d0d0161a03aebccc26d6f4d5639c4d5ec2e639"
+  }
+]

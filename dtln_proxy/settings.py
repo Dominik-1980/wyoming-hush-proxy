@@ -10,6 +10,8 @@ from pathlib import Path
 @dataclass(frozen=True)
 class Settings:
     filter_enabled: bool = True
+    dtln_enabled: bool = True
+    hush_enabled: bool = True
     recording_enabled: bool = False
     atten_lim_db: float = 12.0
     upstream_host: str = ''
@@ -41,7 +43,7 @@ class SettingsStore:
     def validate(self, values: dict) -> Settings:
         if not isinstance(values, dict) or set(values) - set(asdict(Settings())):
             raise ValueError('Unbekannte Einstellung')
-        for key in ('filter_enabled', 'recording_enabled'):
+        for key in ('filter_enabled', 'dtln_enabled', 'hush_enabled', 'recording_enabled'):
             if key in values and type(values[key]) is not bool:
                 raise ValueError('Schalter müssen true oder false sein')
         if 'atten_lim_db' in values:

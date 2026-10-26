@@ -1,18 +1,18 @@
 services:
-  wyoming-hush-proxy:
-    image: ghcr.io/dominik-1980/wyoming-hush-proxy:0.2.0
-    container_name: wyoming-hush-proxy
+  wyoming-noise-cancelling-proxy:
+    image: ghcr.io/dominik-1980/wyoming-noise-cancelling-proxy:0.3.0
+    container_name: wyoming-noise-cancelling-proxy
     restart: unless-stopped
     ports:
-      - "10322:10322"
-      - "10323:10323"
+      - "10322:10326"
+      - "10323:10327"
     environment:
       UPSTREAM_URI: "${UPSTREAM_URI:-}"
       MAX_RECORDING_MB: "512"
       MAX_AUDIO_SECONDS: "60"
       MAX_SESSIONS: "2"
     volumes:
-      - ./data:/data
+      - noise-data:/data
     read_only: true
     tmpfs:
       - /tmp:rw,noexec,nosuid,size=32m
@@ -22,3 +22,5 @@ services:
       - no-new-privileges:true
     mem_limit: 512m
     cpus: 2.0
+volumes:
+  noise-data:

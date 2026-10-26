@@ -1,13 +1,15 @@
 # Changelog
 
-## 0.2.0
+## 0.3.0 — 2026-10-26
 
-- Generic Wyoming speech-filter branding and original/processed recording labels.
-- Configurable STT host and port with persistent UI settings and per-utterance routing.
-- Backend model/language discovery and transparent model selection forwarding.
-- Individual/bulk recording deletion with confirmation, active-recording protection, symlink/path protection and quota refresh.
-- Public Docker/Unraid configuration, pinned upstream provenance and automated test/image workflows.
+- Rename the project to **Wyoming Noise Cancelling Proxy**; retain repository history and the existing icon.
+- Add causal DTLN streaming before the existing Hush filter, with independent per-stage switches and bit-exact global bypass.
+- Default to DTLN → Hush with a **12 dB** Hush attenuation limit. Explicitly saved settings are preserved.
+- Preserve Wyoming routing, downstream model/language discovery, context, errors and paired recording controls.
+- Complete partial frames/tails, retain sample counts and isolate state/settings per utterance.
+- Add matching English/German documentation, Ko-fi/PayPal support links, branded UI and Unraid template.
+- Verify streaming against offline audio, cover four modes and publish Docker images for Linux/amd64 and Linux/arm64.
 
-## 0.1.0
+## Earlier Hush-only releases
 
-- Initial local prototype: stateful Hush streaming, Wyoming relay, paired WAV capture and web controls.
+Versions through 0.2.0 are retained in Git history and GitHub Releases. The original Hush implementation and licensed model provenance remain documented in `NOTICE` and `vendor-manifest.json`.

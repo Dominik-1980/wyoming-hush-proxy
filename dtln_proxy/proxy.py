@@ -70,7 +70,7 @@ class Proxy:
         self.last_error = None
         self.last_run = None
         self.clients = set()
-        self.executor = ThreadPoolExecutor(max_workers=max_sessions, thread_name_prefix='hush')
+        self.executor = ThreadPoolExecutor(max_workers=max_sessions, thread_name_prefix='dtln-hush')
         self._info_cache = None
 
     @property
@@ -99,8 +99,8 @@ class Proxy:
                     raise ValueError('STT-Ziel bietet kein installiertes ASR-Modell an')
                 announcement = Event(type='info', data={'asr': [{
                     'name': 'wyoming-speech-filter', 'installed': True, 'version': __version__,
-                    'description': 'Wyoming Sprachfilter Proxy',
-                    'attribution': {'name': 'Wyoming Hush Proxy', 'url': 'https://github.com/Dominik-1980/wyoming-hush-proxy'},
+                    'description': 'Wyoming Noise Cancelling Proxy',
+                    'attribution': {'name': 'DTLN', 'url': 'https://github.com/breizhn/DTLN'},
                     'models': models,
                     'supports_transcript_streaming': any(s.get('supports_transcript_streaming', False) for s in services),
                     'requires_external_vad': True,
@@ -139,7 +139,7 @@ class Proxy:
                     raise ValueError('Erwartet: transcribe')
                 break
             if self.active_sessions >= self.max_sessions:
-                raise ValueError('Alle Hush-Sitzungen sind belegt; bitte erneut versuchen')
+                raise ValueError('Alle Filtersitzungen sind belegt; bitte erneut versuchen')
             self.active_sessions += 1
             acquired = True
             settings = self.settings.current
@@ -159,7 +159,8 @@ class Proxy:
             fmt = AudioStart.from_event(start)
             if (fmt.rate, fmt.width, fmt.channels) != (16000, 2, 1):
                 raise ValueError('Benötigt 16000 Hz, Mono, PCM16')
-            stream = await self.compute(AudioStream, self.model, settings.filter_enabled, settings.atten_lim_db)
+            stream = await self.compute(AudioStream, self.model, settings.filter_enabled,
+                                        settings.atten_lim_db, settings.dtln_enabled, settings.hush_enabled)
             if settings.recording_enabled:
                 try:
                     recording = self.recordings.start(settings)
@@ -241,7 +242,7 @@ class Proxy:
             self.last_error = f'{type(exc).__name__}: {exc}'
             LOG.warning('Wyoming-Anfrage abgebrochen: %s', self.last_error)
             try:
-                await async_write_event(Error(text=self.last_error, code='hush-proxy-error').event(), writer)
+                await async_write_event(Error(text=self.last_error, code='dtln-proxy-error').event(), writer)
             except (OSError, ConnectionError):
                 pass
         finally:

@@ -1,3 +1,10 @@
+Wyoming Noise Cancelling Proxy
+
+Derived from Wyoming Hush Proxy (Dominik-1980), revision 74cf7682d6e59ec510f20f96554bf20c8b1428e8.
+Additional DTLN streaming implementation based on breizhn/DTLN.
+Copyright (c) 2020 Nils L. Westhausen; MIT License, see licenses/DTLN-LICENSE.
+Original models: https://github.com/breizhn/DTLN/tree/master/pretrained_model
+
 Wyoming Hush Proxy
 Copyright 2026 Dominik-1980
 

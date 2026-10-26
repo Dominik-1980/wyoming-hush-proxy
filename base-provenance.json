@@ -1,0 +1,21 @@
+{
+  "repository": "https://github.com/Dominik-1980/wyoming-hush-proxy",
+  "revision": "74cf7682d6e59ec510f20f96554bf20c8b1428e8",
+  "files": {
+    "hush_proxy/web.py": "1c8dd9cbe0401340304ca426011f9c5e52b33610b5919278b04ef6d62f06a962",
+    "hush_proxy/index.html": "b29daa2e4e3cb26cc8059e00210789e5b0edace8209b3c461c682360a757ba79",
+    "hush_proxy/recording.py": "fec1b9b508385e6eba3d8433491e8c923a70ada305de5cfd39c3e88d130df7a3",
+    "hush_proxy/proxy.py": "d27fd494058a4d598da2d7a28d5e50b7331ca2fa607b75c456388acd300cdd12",
+    "hush_proxy/__init__.py": "667d4a15b970b851e20d17510224670c14646cfb6d5a1e388ca6b9cc6da8bf41",
+    "hush_proxy/settings.py": "ed5b263a6e9bac27b02db1aeaa545acf944e2d9849542882e61891a42795d123",
+    "hush_proxy/audio.py": "442307351a39dc314170d78a92f3e87f9c7ba95c69e9a8e72d8f15ac80621a0c",
+    "hush_proxy/__main__.py": "27b749b554e483079dea6157856b8b346b671c13aabcd5f261c9e0012fbb03b7",
+    "hush_proxy/vendor/_hush_model.py": "ededea6457bf0ed12ab1f3f761963c486089b5877c4f74a440e2ffb3dea6ada4",
+    "hush_proxy/vendor/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "hush_proxy/vendor/models/df_dec.onnx": "dae10024478a0cef057eeb91021a927c631af6387789fc88ce0f57621c7b269b",
+    "hush_proxy/vendor/models/config.ini": "d3f94d49f65309447c0158745e10e20e674a561e5396a1ebe70239958dd29cea",
+    "hush_proxy/vendor/models/erb_dec.onnx": "dfda32e6d3ad8bf68e075c12b5319c3a9ed264e3eb1c9da20261eeda04ea1a9a",
+    "hush_proxy/vendor/models/enc.onnx": "eed80a17a2e4f33209e648cf35fdd3719499319771bdf2aa3fe4b56a48cfeaba",
+    "hush_proxy/vendor/_libdf/__init__.py": "91a5f76177cddaf13976373f4f77e9fc0e386150668f60592fca3fdc2e7d1f82"
+  }
+}

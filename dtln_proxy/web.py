@@ -23,6 +23,9 @@ def create_app(proxy):
     async def index(request):
         return web.Response(text=Path(__file__).with_name('index.html').read_text(), content_type='text/html')
 
+    async def logo(request):
+        return web.FileResponse(Path(__file__).resolve().parent.parent / 'assets' / 'logo.png')
+
     async def state(request):
         return web.json_response({'version': __version__, 'settings': asdict(proxy.settings.current),
             'active_sessions': proxy.active_sessions, 'total_sessions': proxy.total_sessions,
@@ -105,7 +108,7 @@ def create_app(proxy):
     async def health(request):
         return web.json_response({'status': 'ready', 'version': __version__})
 
-    app.add_routes([web.get('/', index), web.get('/api/state', state), web.post('/api/settings', update),
+    app.add_routes([web.get('/', index), web.get('/assets/logo.png', logo), web.get('/api/state', state), web.post('/api/settings', update),
                     web.get('/api/recordings', recordings), web.delete('/api/recordings', remove_recording),
                     web.delete('/api/recordings/{clip}', remove_recording), web.get('/recordings/{clip}/{filename}', download),
                     web.get('/healthz', health)])
